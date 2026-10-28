@@ -272,6 +272,27 @@ struct OmniSettingsView: View  {
 
     var body: some View {
         List {
+            if viewModel.podAuthenticity == .simulated {
+                Section {
+                    HStack(spacing: 12) {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.white)
+                            .padding(6)
+                            .background(Color.red)
+                            .clipShape(Circle())
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(LocalizedString("Simulated Pod", comment: "Settings warning title when paired to the pod simulator"))
+                                .font(.headline)
+                            Text(LocalizedString("This is the pod simulator, not a genuine Omnipod. It delivers no insulin and must not be used for therapy.", comment: "Settings warning body when paired to the pod simulator"))
+                                .font(.footnote)
+                                .foregroundColor(.secondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+                    .padding(.vertical, 4)
+                }
+            }
+
             Section() {
                 VStack(alignment: .trailing) {
                     Button(action: {
@@ -545,27 +566,6 @@ struct OmniSettingsView: View  {
                         Text("—")
                             .foregroundColor(Color.secondary)
                     }
-                }
-            }
-
-            if viewModel.podAuthenticity == .simulated {
-                Section {
-                    HStack(spacing: 12) {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundColor(.white)
-                            .padding(6)
-                            .background(Color.red)
-                            .clipShape(Circle())
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text(LocalizedString("Simulated Pod", comment: "Settings warning title when paired to the pod simulator"))
-                                .font(.headline)
-                            Text(LocalizedString("This is the pod simulator, not a genuine Omnipod. It delivers no insulin and must not be used for therapy.", comment: "Settings warning body when paired to the pod simulator"))
-                                .font(.footnote)
-                                .foregroundColor(.secondary)
-                                .fixedSize(horizontal: false, vertical: true)
-                        }
-                    }
-                    .padding(.vertical, 4)
                 }
             }
 
